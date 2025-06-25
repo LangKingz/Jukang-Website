@@ -45,9 +45,7 @@ const Navbar = () => {
           {/* <!-- Mobile menu button --> */}
           <div className="md:hidden">
             <button id="mobile-menu-button" className="text-gray-700 hover:text-primary p-2">
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
+              <img src="/svf/burger.svg" alt="" />
             </button>
           </div>
         </div>
