@@ -11,10 +11,14 @@
 }
 
 .hero-pattern {
-  background-image: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-    radial-gradient(circle at 40% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%);
+  background-image: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 80%),
+    radial-gradient(circle at 80% 20%, rgba(120, 119, 198, 0.3) 0%, transparent 80%),
+    radial-gradient(circle at 40% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 20%);
 }
+
+/* .text-primary {
+  color: #667eea;
+} */
 
 .card-hover {
   transition: all 0.3s ease;

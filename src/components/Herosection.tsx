@@ -1,39 +1,35 @@
+"use client";
+
+import Lottie from "lottie-react";
 import React from "react";
+import WelcomeAnimation from "../../public/lottie/welcome_animation.json";
 
 const Herosection = () => {
   return (
-    <section className="gradient-bg hero-pattern py-20 lg:py-32">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex gap-12 items-center">
-          <div className="text-white slide-in ">
-            <h1 className="text-2xl lg:text-6xl font-bold mb-6 leading-tight">
+    <section className="gradient-bg hero-pattern py-10">
+      <div className=" mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center">
+          <div className="text-white slide-in  flex justify-center flex-col items-center">
+            <h1 className="text-2xl lg:text-4xl font-bold mb-6 leading-tight max-w-2xl">
               Temukan Tukang
-              <span className="text-yellow-300">Profesional</span>
+              <span className="text-yellow-400"> Profesional </span>
               Terpercaya
             </h1>
             <p className="text-xl lg:text-2xl mb-8 text-gray-100">
               Platform terdepan untuk menghubungkan Anda dengan tukang berpengalaman di seluruh Indonesia
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-white text-primary px-8 py-3 rounded-lg font-semibold text-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+            <div className="flex flex-col sm:flex-row w-full gap-4">
+              <button className="bg-gradient-to-r cursor-pointer from-blue-400 to-purple-500 text-primary px-8 py-3 rounded-lg font-semibold text-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
                 Cari Tukang Sekarang
               </button>
-              <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold text-lg hover:bg-white hover:text-primary transition-all duration-200">
+              <button className="border-2 border-white cursor-pointer text-white px-8 py-3 rounded-lg font-semibold text-lg hover:bg-[#667eea]  transition-all duration-200">
                 Daftar Sebagai Tukang
               </button>
             </div>
           </div>
-          <div className="flex justify-center lg:justify-end w-1/3">
-            <div className="floating bounce-in">
-              <div className="bg-white rounded-2xl p-8 shadow-2xl max-w-md">
-                <div className="text-center">
-                  <div className="w-20 h-20 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                    <span className="text-3xl">🔧</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">Siap Membantu!</h3>
-                  <p className="text-gray-600">Lebih dari 10,000+ tukang profesional siap melayani Anda</p>
-                </div>
-              </div>
+          <div className="flex justify-center ">
+            <div className="w-[400px] bounce-in">
+              <Lottie animationData={WelcomeAnimation} loop={true} />
             </div>
           </div>
         </div>

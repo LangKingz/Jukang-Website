@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const Navbar = () => {
@@ -8,9 +9,9 @@ const Navbar = () => {
           {/* <!-- Logo --> */}
           <div className="flex items-center">
             <div className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-gray-800">
-                JuKang <span className="text-primary">ID</span>
-              </h1>
+              <Link href={"/"} className="text-2xl font-bold text-gray-800">
+                JuKang <span className="text-[#667eea]">ID</span>
+              </Link>
             </div>
           </div>
 
@@ -37,9 +38,9 @@ const Navbar = () => {
 
           {/* <!-- Login Button --> */}
           <div className="hidden md:block">
-            <button className="gradient-bg text-white px-6 py-2 rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105">
+            <Link href={"/login"} className="gradient-bg text-white px-6 py-2 rounded-lg text-sm font-medium hover:shadow-lg transition-all duration-200 transform hover:scale-105">
               Masuk
-            </button>
+            </Link>
           </div>
 
           {/* <!-- Mobile menu button --> */}
