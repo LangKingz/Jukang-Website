@@ -1,0 +1,18 @@
+export interface PendaftaranResponse {
+  message: string;
+  data: DataPendaftaran[];
+}
+
+export interface DataPendaftaran {
+  id: string;
+  user_id: string;
+  namalengkap: string;
+  domisili: string;
+  nomortelp: string;
+  photoprofile: string;
+  createdAt: string;
+  email: string;
+  updatedAt: string;
+  photoktp: string;
+}
+
