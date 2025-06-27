@@ -49,6 +49,7 @@ const PendaftaranPages: React.FC = () => {
           nomor_telpon : user.nomortelp,
           review:0,
           photoUrl: user.photoprofile,
+          spesialis: user.spesialis
         }),
       });
       const response1 = await fetch(`https://api-jukang.vercel.app/users/update`, {
@@ -127,6 +128,7 @@ const PendaftaranPages: React.FC = () => {
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nomor Telepon</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">domisili</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">spesialis</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Foto Profil</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Foto KTP</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dibuat Pada</th>
@@ -146,6 +148,7 @@ const PendaftaranPages: React.FC = () => {
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{user.nomortelp}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{user.email}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{user.domisili}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{user.spesialis}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
                   {user.photoprofile ? (
                     <img

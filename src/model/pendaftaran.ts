@@ -9,6 +9,7 @@ export interface DataPendaftaran {
   namalengkap: string;
   domisili: string;
   nomortelp: string;
+  spesialis:string;
   photoprofile: string;
   createdAt: string;
   email: string;
