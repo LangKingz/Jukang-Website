@@ -45,7 +45,10 @@ const PendaftaranPages: React.FC = () => {
         body: JSON.stringify({
           tukang_id: user.user_id,
           namatukang: user.namalengkap,
-          review: 2,
+          domisili: user.domisili,
+          nomor_telpon : user.nomortelp,
+          review:0,
+          photoUrl: user.photoprofile,
         }),
       });
       const response1 = await fetch(`https://api-jukang.vercel.app/users/update`, {
@@ -55,7 +58,7 @@ const PendaftaranPages: React.FC = () => {
         },
         body: JSON.stringify({
           user_id: user.user_id,
-          role: "pengguna",
+          role: "tukang",
         }),
       });
 
