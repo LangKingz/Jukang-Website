@@ -70,6 +70,16 @@ const PendaftaranPages: React.FC = () => {
       const result = await response.json();
       if (result.success) {
         // Jika berhasil, perbarui daftar pendaftaran
+        await fetch("https://api-jukang.vercel.app/email/send",{
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user.email,
+            nama: user.namalengkap,
+          }),
+        })
         alert("Pendaftaran berhasil disetujui.");
       } else {
         alert(result.message);
