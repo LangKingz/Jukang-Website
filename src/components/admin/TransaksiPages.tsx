@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { DataTransaksi, TransaksiResponse } from "@/model/transaksi";
 import React, { useEffect, useState } from "react";
@@ -14,12 +14,12 @@ const TransaksiPages: React.FC = () => {
         setLoading(true);
         setError(null);
 
-        const apiUrl = 'https://api-jukang.vercel.app/transaksi/semua'; // URL API Transaksi Anda
+        const apiUrl = "https://api-jukang.vercel.app/transaksi/semua"; // URL API Transaksi Anda
         const response = await fetch(apiUrl);
 
         if (!response.ok) {
           const errorData = await response.json().catch(() => ({}));
-          throw new Error(`Kesalahan HTTP! Status: ${response.status}. Pesan: ${errorData.message || 'Tidak dikenal'}`);
+          throw new Error(`Kesalahan HTTP! Status: ${response.status}. Pesan: ${errorData.message || "Tidak dikenal"}`);
         }
 
         const apiData: TransaksiResponse = await response.json();
@@ -44,6 +44,23 @@ const TransaksiPages: React.FC = () => {
 
     fetchData();
   }, []);
+
+  const handleDelete = async (t: DataTransaksi) => {
+    const response = await fetch(`https://api-jukang.vercel.app/transaksi/${t.id_transaksi}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(`Gagal menghapus transaksi! Status: ${response.status}. Pesan: ${errorData.message || "Tidak dikenal"}`);
+    }
+    const data = await response.json();
+    if (data.status === "success") {
+      alert("Transaksi berhasil dihapus");
+      setTransactions(transactions.filter((transaction) => transaction.id_transaksi !== t.id_transaksi));
+    } else {
+      alert("Gagal menghapus transaksi: " + data.message);
+    }
+  };
 
   if (loading) {
     return (
@@ -72,75 +89,56 @@ const TransaksiPages: React.FC = () => {
   return (
     <div className="max-w-full mx-auto bg-white shadow-lg rounded-xl p-6">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Tabel Transaksi</h2>
-      
+
       <div className="overflow-x-auto rounded-lg border border-gray-200">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">
-                ID Transaksi
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Nama Pelanggan
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Nama Tukang
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Spesialis
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Tanggal
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Metode Pembayaran
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                Total
-              </th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">
-                Dibuat Pada
-              </th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">ID Transaksi</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Pelanggan</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Tukang</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Spesialis</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Metode Pembayaran</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">Dibuat Pada</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">Aksi</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {transactions.map((t) => (
               <tr key={t.id_transaksi} className="hover:bg-gray-50">
                 <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
-                  <span className="block max-w-[100px] truncate" title={t.id_transaksi}>{t.id_transaksi}</span>
+                  <span className="block max-w-[100px] truncate" title={t.id_transaksi}>
+                    {t.id_transaksi}
+                  </span>
                 </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.namalengkap}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.namatukang}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.spesialis}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{new Date(t.tanggal).toLocaleDateString()}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
-                  {t.namalengkap}
-                </td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
-                  {t.namatukang}
-                </td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
-                  {t.spesialis}
-                </td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
-                  {new Date(t.tanggal).toLocaleDateString()}
-                </td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
-                  <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                    ${t.status_code === 'pending' ? 'bg-yellow-100 text-yellow-800' : ''}
-                    ${t.status_code === 'diterima' ? 'bg-green-100 text-green-800' : ''}
-                    ${t.status_code === 'selesai' ? 'bg-blue-100 text-blue-800' : ''}
-                  `}>
+                  <span
+                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                    ${t.status_code === "pending" ? "bg-yellow-100 text-yellow-800" : ""}
+                    ${t.status_code === "diterima" ? "bg-green-100 text-green-800" : ""}
+                    ${t.status_code === "selesai" ? "bg-blue-100 text-blue-800" : ""}
+                  `}
+                  >
                     {t.status_code}
                   </span>
                 </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.metodePembayaran}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.total}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{new Date(t.createdAt).toLocaleString()}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
-                  {t.metodePembayaran}
-                </td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
-                  {t.total}
-                </td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
-                  {new Date(t.createdAt).toLocaleString()}
+                  <button
+                    onClick={() => handleDelete(t)}
+                    className={`px-3 py-1 rounded-md cursor-pointer text-white text-xs font-medium bg-red-500 hover:bg-red-600 transition-colors duration-200`}
+                  >
+                    Hapus
+                  </button>
                 </td>
               </tr>
             ))}
