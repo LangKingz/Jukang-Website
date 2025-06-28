@@ -29,7 +29,7 @@ const App = () => {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-gray-100 font-inter">
       {/* Sidebar Navigasi */}
-      <aside className="w-full lg:w-64 bg-gray-800 text-white sticky top-0 p-4 lg:p-6 shadow-lg rounded-b-lg lg:rounded-r-lg lg:rounded-bl-none">
+      <aside className="w-full lg:w-64 bg-gray-800 text-white p-4 lg:p-6 shadow-lg rounded-b-lg lg:rounded-r-lg lg:rounded-bl-none">
         <div className="text-3xl font-bold mb-8 text-center">Admin Panel</div>
         <nav>
           <ul>
