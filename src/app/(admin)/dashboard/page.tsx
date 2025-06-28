@@ -3,6 +3,7 @@
 import DashboardPages from "@/components/admin/DashboardPages";
 import PendaftaranPages from "@/components/admin/PendaftaranPages";
 import SettingsPages from "@/components/admin/SettingsPages";
+import TransaksiPages from "@/components/admin/TransaksiPages";
 import TukangPages from "@/components/admin/TukangPages";
 import React, { useState } from "react";
 
@@ -21,6 +22,8 @@ const App = () => {
         return <SettingsPages />;
       case "tukang":
         return <TukangPages />;
+      case "transaksi":
+        return <TransaksiPages />;
       default:
         return <DashboardPages />; // Kembali ke Dasbor jika halaman tidak ditemukan
     }
@@ -91,6 +94,26 @@ const App = () => {
                   ></path>
                 </svg>
                 Tukang
+              </button>
+            </li>
+            <li className="mb-4">
+              {/* Tombol navigasi Transaksi */}
+              <button
+                onClick={() => setCurrentPage("transaksi")}
+                className={`flex items-center w-full px-4 py-2 rounded-lg text-left 
+                  ${currentPage === "transaksi" ? "bg-gray-700 text-teal-400" : "hover:bg-gray-700 hover:text-white"}
+                  transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75`}
+              >
+                {/* Ikon Transaksi (SVG) */}
+                <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9.5a3 3 0 013-3h.5a3 3 0 013 3V19m-4-7h-4"
+                  ></path>
+                </svg>
+                Transaksi
               </button>
             </li>
             <li className="mb-4">
