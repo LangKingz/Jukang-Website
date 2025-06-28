@@ -63,14 +63,7 @@ const PendaftaranPages: React.FC = () => {
         }),
       });
 
-      if (!response.ok && !response1.ok) {
-        throw new Error("Gagal menyetujui pendaftaran.");
-      }
-
-      const result = await response.json();
-      if (result.success) {
-        // Jika berhasil, perbarui daftar pendaftaran
-        await fetch("https://api-jukang.vercel.app/email/send",{
+      const response2 = await fetch("https://api-jukang.vercel.app/email/send",{
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -80,6 +73,13 @@ const PendaftaranPages: React.FC = () => {
             nama: user.namalengkap,
           }),
         })
+
+      if (!response.ok && !response1.ok && !response2.ok) {
+        throw new Error("Gagal menyetujui pendaftaran.");
+      }
+
+      const result = await response.json() && await response1.json() && await response2.json();
+      if (result.success) {
         alert("Pendaftaran berhasil disetujui.");
       } else {
         alert(result.message);
