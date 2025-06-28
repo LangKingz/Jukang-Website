@@ -10,6 +10,7 @@ import React, { useState } from "react";
 const App = () => {
   // State untuk melacak halaman saat ini yang ditampilkan
   const [currentPage, setCurrentPage] = useState<string>("dashboard"); // Halaman default
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true); // State untuk mengelola sidebar pada layar kecil
 
   // Fungsi untuk merender komponen halaman yang sesuai berdasarkan currentPage
   const renderPage = () => {
@@ -33,8 +34,15 @@ const App = () => {
     <div className="flex flex-col lg:flex-row min-h-screen bg-gray-100 font-inter">
       {/* Sidebar Navigasi */}
       <aside className="w-full lg:w-64 bg-gray-800 text-white p-4 lg:p-6 shadow-lg rounded-b-lg lg:rounded-r-lg lg:rounded-bl-none">
-        <div className="text-3xl font-bold mb-8 text-center">Admin Panel</div>
-        <nav>
+        <div className="text-3xl font-bold mb-8 text-center flex items-center justify-between">
+          <h1>Admin Panel</h1>
+          <button className="lg:hidden block" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+            <svg className="swap-off fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 512 512">
+              <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
+            </svg>
+          </button>
+        </div>
+        <nav className={`${isSidebarOpen ? "hidden" : ""}  lg:block`}>
           <ul>
             <li className="mb-4">
               {/* Tombol navigasi Dasbor */}
