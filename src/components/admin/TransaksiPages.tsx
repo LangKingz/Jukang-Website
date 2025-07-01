@@ -118,9 +118,9 @@ const TransaksiPages: React.FC = () => {
                     {t.id_transaksi}
                   </span>
                 </td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.namalengkap}</td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.namatukang}</td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.spesialis}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.dataUser.namalengkap}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.dataTukang.namatukang}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.dataTukang.spesialis}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{new Date(t.tanggal).toLocaleDateString()}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
                   <span
@@ -136,7 +136,7 @@ const TransaksiPages: React.FC = () => {
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.lat}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.long}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.metodePembayaran}</td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.total}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.dataTukang.priceRupiah}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{new Date(t.createdAt).toLocaleString()}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800 flex items-center gap-2">
                   <button
