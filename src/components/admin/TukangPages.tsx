@@ -2,6 +2,7 @@
 
 import { Tukang, TukangApiResponse } from "@/model/tukang";
 import React, { useEffect, useState } from "react";
+import ModalTukang from "../ModalTukang";
 
 // Interface baru untuk data Tukang
 
@@ -10,6 +11,46 @@ const TukangPages = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [limit, setLimit] = useState<number>(10); // Menambahkan state limit
+  const [formData, setFormData] = useState({
+    namatukang: "",
+    review: 0,
+  });
+
+  const openModal = () => {
+    (document.getElementById("my_modal_1") as HTMLDialogElement).showModal();
+  };
+
+  const handleAddData = async () => {
+    try {
+      const response = await fetch("https://api-jukang.vercel.app/tukang", {
+        method: "POST",
+        body: JSON.stringify({
+          namatukang: formData.namatukang,
+          review: formData.review,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Gagal menambahkan data tukang.");
+      }
+
+      // const newData = await response.json();
+      fetchData(); // Memanggil fetchData untuk memperbarui daftar tukang
+      // setTukangs((prevTukangs) => [...prevTukangs, newData]);
+
+      // 4. Reset form dengan mengembalikan state ke nilai awal
+      setFormData({
+        namatukang: "",
+        review: 0,
+      });
+    } catch (error) {
+      console.error("Terjadi kesalahan saat menambahkan data:", error);
+    }
+  };
+
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -45,7 +86,7 @@ const TukangPages = () => {
     }
   };
 
-  const handleLimitChange = () => {
+  const handleLimitChange = async () => {
     setLimit(limit + 10);
   };
 
@@ -63,8 +104,7 @@ const TukangPages = () => {
         throw new Error("Gagal menghapus pendaftaran.");
       }
 
-      alert("Pendaftaran berhasil dihapus.");
-      fetchData(); // Memuat ulang data setelah penghapusan
+      setTukangs(tukangs.filter((tukang) => tukang.tukang_id !== user.tukang_id));
     } catch (error) {
       alert("Fitur hapus pendaftaran belum tersedia.");
       console.error("Terjadi kesalahan saat menghapus pendaftaran:", error);
@@ -88,22 +128,63 @@ const TukangPages = () => {
     );
   }
 
-  if (tukangs.length === 0) {
-    return (
-      <div className="flex justify-center items-center h-full bg-white shadow-lg rounded-xl p-6">
-        <p className="text-gray-600 text-lg">Tidak ada data tukang yang ditemukan.</p>
-      </div>
-    );
-  }
-
   return (
     <div className="max-w-full mx-auto bg-white shadow-lg rounded-xl p-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Daftar Tukang</h2>
+      <h2 className="text-2xl font-bold text-gray-800  text-center">Daftar Tukang</h2>
+      <div className="flex mb-5">
+        <button className="btn btn-primary" onClick={openModal}>
+          Fake Data
+        </button>
+      </div>
+      {/* tambah data */}
+      <dialog id="my_modal_1" className="modal">
+        <div className="bg-slate-900 p-10 rounded-2xl">
+          <div className="flex justify-center">
+            <form method="dialog" onSubmit={handleAddData}>
+              {/* /* Input untuk Nama Tukang */}
+              <div className="form-control w-full mb-4">
+                <label className="label">
+                  <span className="label-text text-base">Nama Tukang</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Contoh: Budi Santoso"
+                  className="input input-bordered w-full text-black bg-gray-50 focus:border-primary"
+                  name="namatukang" // 5. Tambahkan atribut 'name' yang sesuai dengan key di state
+                  value={formData.namatukang} // Ikat value ke property state yang sesuai
+                  onChange={(e) => setFormData({ ...formData, namatukang: e.target.value })} // 6. Tambahkan onChange untuk memperbarui state
+                  required
+                />
+              </div>
+              {/* Input untuk Review */}
+              <div className="form-control w-full mb-6">
+                <label className="label">
+                  <span className="label-text text-base">Rating Awal (0-5)</span>
+                </label>
+                <input
+                  type="number"
+                  placeholder="Contoh: 4"
+                  className="input input-bordered w-full text-black bg-gray-50 focus:border-primary"
+                  name="review" // 5. Tambahkan atribut 'name' yang sesuai dengan key di state
+                  value={formData.review} // Ikat value ke property state yang sesuai
+                  onChange={(e) => setFormData({ ...formData, review: Number(e.target.value) })} // 6. Tambahkan onChange untuk memperbarui state
+                  min="0"
+                  max="5"
+                  required
+                />
+              </div>
+
+              <button className="btn btn-primary w-full">Tambah</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
 
       <div className="overflow-x-auto rounded-lg border border-gray-200">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">Info</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">ID Tukang</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Tukang</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Spesialis</th>
@@ -117,8 +198,20 @@ const TukangPages = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {tukangs.map((tukang) => (
-              <tr key={tukang.tukang_id} className="hover:bg-gray-50">
+            {tukangs.map((tukang, index) => (
+              <tr key={index} className="hover:bg-gray-50">
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
+                  <button
+                    className="btn btn-soft"
+                    onClick={() => {
+                      const modal = document.getElementById("detail_tukang_modal") as HTMLDialogElement;
+                      modal.showModal();
+                    }}
+                  >
+                    Detail
+                  </button>
+                  <ModalTukang tukang={tukang} onClose={() => (document.getElementById("detail_tukang_modal") as HTMLDialogElement).close()} />
+                </td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
                   <span className="block max-w-[100px] truncate" title={tukang.tukang_id}>
                     {tukang.tukang_id}

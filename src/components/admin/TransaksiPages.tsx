@@ -2,6 +2,7 @@
 
 import { DataTransaksi, TransaksiResponse } from "@/model/transaksi";
 import React, { useEffect, useState } from "react";
+import Modal from "../Modal";
 
 const TransaksiPages: React.FC = () => {
   const [transactions, setTransactions] = useState<DataTransaksi[]>([]);
@@ -45,7 +46,6 @@ const TransaksiPages: React.FC = () => {
 
     fetchData();
   }, []);
-
 
   const handleDelete = async (t: DataTransaksi) => {
     const response = await fetch(`https://api-jukang.vercel.app/transaksi/${t.id_transaksi}`, {
@@ -91,11 +91,11 @@ const TransaksiPages: React.FC = () => {
   return (
     <div className="max-w-full mx-auto bg-white shadow-lg rounded-xl p-6">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Tabel Transaksi</h2>
-
       <div className="overflow-x-auto rounded-lg border border-gray-200">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">Struk</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">ID Transaksi</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Pelanggan</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Tukang</th>
@@ -113,6 +113,29 @@ const TransaksiPages: React.FC = () => {
           <tbody className="bg-white divide-y divide-gray-200">
             {transactions.map((t) => (
               <tr key={t.id_transaksi} className="hover:bg-gray-50">
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
+                  <button
+                    onClick={() => {
+                      const modal = document.getElementById("struk_modal") as HTMLDialogElement;
+                      modal?.showModal();
+                    }}
+                    className="px-3 py-1 rounded-md cursor-pointer text-white text-xs font-medium bg-blue-500 hover:bg-blue-600 transition-colors duration-200"
+                  >
+                    Lihat Struk
+                  </button>
+                  <Modal
+                    data={t}
+                    onClose={() => {
+                      const modal = document.getElementById("struk_modal") as HTMLDialogElement;
+                      modal?.close();
+                    }}
+                    onPrint={() => {
+                      const modal = document.getElementById("struk_modal") as HTMLDialogElement;
+                      modal?.close();
+                      window.print();
+                    }}
+                  />
+                </td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
                   <span className="block max-w-[100px] truncate" title={t.id_transaksi}>
                     {t.id_transaksi}
@@ -127,7 +150,7 @@ const TransaksiPages: React.FC = () => {
                     className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                     ${t.status_code === "pending" ? "bg-yellow-100 text-yellow-800" : ""}
                     ${t.status_code === "diterima" ? "bg-green-100 text-green-800" : ""}
-                    ${t.status_code === "selesai" ? "bg-blue-100 text-blue-800" : ""}
+                    ${t.status_code === "Selesai" ? "bg-blue-100 text-blue-800" : ""}
                   `}
                   >
                     {t.status_code}
@@ -159,7 +182,6 @@ const TransaksiPages: React.FC = () => {
             ))}
           </tbody>
         </table>
-        
       </div>
     </div>
   );

@@ -1,144 +1,104 @@
-// import React from "react";
+import { DataTransaksi } from "@/model/transaksi";
+import React from "react";
 
-// const Modal = () => {
-//   return (
-//     <dialog id="my_modal_3" className="modal">
-//       <div className="modal-box">
-//         <form method="dialog">
-//           {/* Form Fields */}
-//           <div className="space-y-4">
-//             {/* ID Transaksi */}
-//             <div>
-//               <label htmlFor="id_transaksi" className="block text-sm font-medium text-gray-700 mb-1">
-//                 ID Transaksi
-//               </label>
-//               <input
-//                 type="text"
-//                 id="id_transaksi"
-//                 name="id_transaksi"
-//                 value={formData?.id_transaksi || ""}
-//                 className="input input-bordered w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"
-//                 placeholder="TRX-XXXX-XXX"
-//                 required
-//               />
-//             </div>
+export type props = {
+  data: DataTransaksi;
+  onClose: () => void;
+  onPrint: () => void;
+};
 
-//             {/* Nama Tukang */}
-//             <div>
-//               <label htmlFor="namatukang" className="block text-sm font-medium text-gray-700 mb-1">
-//                 Nama Tukang
-//               </label>
-//               <input
-//                 type="text"
-//                 id="namatukang"
-//                 name="namatukang"
-//                 value={formData?.namatukang || ""}
-//                 className="input input-bordered w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"
-//                 placeholder="Nama Lengkap Tukang"
-//                 required
-//               />
-//             </div>
+const Modal = ({ data, onClose, onPrint }: props) => {
+  // --- Helper buat status biar lebih cakep ---
+  const getStatusInfo = (statusCode: string) => {
+    switch (statusCode) {
+      case "Selesai": // atau status 'selesai' lainnya
+        return { text: "Selesai", className: "badge-success text-white" };
+      case "Diterima": // atau status 'dibatalkan'
+        return { text: "Dibatalkan", className: "badge-error text-white" };
+      default:
+        return { text: "Dalam Proses", className: "badge-warning text-white" };
+    }
+  };
 
-//             {/* Alamat */}
-//             <div>
-//               <label htmlFor="alamat" className="block text-sm font-medium text-gray-700 mb-1">
-//                 Alamat
-//               </label>
-//               <textarea
-//                 id="alamat"
-//                 name="alamat"
-//                 value={formData?.alamat || ""}
-//                 rows={3}
-//                 className="textarea textarea-bordered w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out resize-y"
-//                 placeholder="Alamat lokasi pekerjaan"
-//                 required
-//               ></textarea>
-//             </div>
+  const status = getStatusInfo(data.status_code);
+  const formattedDate = new Date(data.tanggal).toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+  return (
+    <dialog id="struk_modal" className="modal modal-bottom sm:modal-middle text-white">
+      <div className="modal-box">
+        {/* Tombol Close Elegan di Pojok Kanan Atas */}
+        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={onClose}>
+          ✕
+        </button>
 
-//             {/* Deskripsi */}
-//             <div>
-//               <label htmlFor="deskripsi" className="block text-sm font-medium text-gray-700 mb-1">
-//                 Deskripsi Pekerjaan
-//               </label>
-//               <textarea
-//                 id="deskripsi"
-//                 name="deskripsi"
-//                 value={formData?.deskripsi || ""}
-//                 rows={4}
-//                 className="textarea textarea-bordered w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out resize-y"
-//                 placeholder="Detail pekerjaan yang dilakukan"
-//                 required
-//               ></textarea>
-//             </div>
+        <h3 className="font-bold text-lg">Detail Transaksi</h3>
+        <p className="py-2 text-sm text-base-content/70">ID: {data.id_transaksi}</p>
 
-//             {/* Metode Pembayaran */}
-//             <div>
-//               <label htmlFor="metodePembayaran" className="block text-sm font-medium text-gray-700 mb-1">
-//                 Metode Pembayaran
-//               </label>
-//               <select
-//                 id="metodePembayaran"
-//                 name="metodePembayaran"
-//                 value={formData?.metodePembayaran || ""}
-//                 className="select select-bordered w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"
-//                 required
-//               >
-//                 <option value="">Pilih Metode Pembayaran</option>
-//                 <option value="Tunai">Tunai</option>
-//                 <option value="Transfer Bank">Transfer Bank</option>
-//                 <option value="QRIS">QRIS</option>
-//               </select>
-//             </div>
+        {/* --- Info Utama --- */}
+        <div className="divider my-1"></div>
+        <div className="space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span className="text-base-content/70">Status</span>
+            <span className={`badge ${status.className} font-semibold`}>{status.text}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-base-content/70">Tanggal</span>
+            <span className="font-semibold">{formattedDate}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-base-content/70">Pembayaran</span>
+            <span className="font-semibold">{data.metodePembayaran}</span>
+          </div>
+        </div>
 
-//             {/* Total */}
-//             <div>
-//               <label htmlFor="total" className="block text-sm font-medium text-gray-700 mb-1">
-//                 Total Biaya (Rp)
-//               </label>
-//               <input
-//                 type="number"
-//                 id="total"
-//                 name="total"
-//                 value={formData?.total || ""}
-//                 className="input input-bordered w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"
-//                 placeholder="Contoh: 500000"
-//                 min="0"
-//                 required
-//               />
-//             </div>
+        {/* --- Info Jasa --- */}
+        <div className="divider my-1">Info Jasa</div>
+        <div className="space-y-2 text-sm">
+          <div className="flex justify-between">
+            <span className="text-base-content/70">Pelanggan</span>
+            <span className="font-semibold">{data.dataUser?.namalengkap}</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-base-content/70">Penyedia Jasa</span>
+            <span className="font-semibold">
+              {data.dataTukang?.namatukang} ({data.dataTukang?.spesialis})
+            </span>
+          </div>
+          <div className="flex justify-between items-start gap-4 ">
+            <span className="text-base-content/70 flex-1">Alamat</span>
+            <span className="font-semibold text-right w-full truncate ">{data.alamat}</span>
+          </div>
+        </div>
 
-//             {/* Tanggal */}
-//             <div>
-//               <label htmlFor="tanggal" className="block text-sm font-medium text-gray-700 mb-1">
-//                 Tanggal Transaksi
-//               </label>
-//               <input
-//                 type="date"
-//                 id="tanggal"
-//                 name="tanggal"
-//                 value={formData?.tanggal || ""}
-//                 className="input input-bordered w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out"
-//                 required
-//               />
-//             </div>
+        {/* --- Rincian Biaya --- */}
+        <div className="divider my-1">Rincian</div>
+        <div className="bg-base-200/50 p-4 rounded-lg mt-2 space-y-2">
+          <p className="text-sm text-base-content/80">{data.deskripsi}</p>
+          <div className="flex justify-between items-center pt-2 border-t border-base-content/10">
+            <span className="font-bold text-md">Total Biaya</span>
+            <span className="font-extrabold text-xl text-primary">{data.dataTukang?.priceRupiah}</span>
+          </div>
+        </div>
 
-//             {/* Submit Button */}
-//             <div className="flex justify-end pt-4">
-//               <button
-//                 type="submit"
-//                 onClick={(e) => {
-//                   handleUpdate(e as unknown as DataTransaksi);
-//                 }}
-//                 className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-300"
-//               >
-//                 Simpan Transaksi
-//               </button>
-//             </div>
-//           </div>
-//         </form>
-//       </div>
-//     </dialog>
-//   );
-// };
+        {/* --- Tombol Aksi --- */}
+        <div className="modal-action mt-6">
+          <button className="btn btn-ghost" onClick={onClose}>
+            Tutup
+          </button>
+          <button className="btn btn-primary" onClick={onPrint}>
+            Cetak Struk
+          </button>
+        </div>
+      </div>
+      {/* Klik di luar modal akan menutupnya */}
+      <form method="dialog" className="modal-backdrop">
+        <button onClick={onClose}>close</button>
+      </form>
+    </dialog>
+  );
+};
 
-// export default Modal;
+export default Modal;
