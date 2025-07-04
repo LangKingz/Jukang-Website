@@ -10,6 +10,8 @@ const TransaksiPages: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   // const [formData, setFormData] = useState<DataTransaksi>();
 
+  const [struk, setStruk] = useState<DataTransaksi>();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -118,23 +120,12 @@ const TransaksiPages: React.FC = () => {
                     onClick={() => {
                       const modal = document.getElementById("struk_modal") as HTMLDialogElement;
                       modal?.showModal();
+                      setStruk(t);
                     }}
                     className="px-3 py-1 rounded-md cursor-pointer text-white text-xs font-medium bg-blue-500 hover:bg-blue-600 transition-colors duration-200"
                   >
                     Lihat Struk
                   </button>
-                  <Modal
-                    data={t}
-                    onClose={() => {
-                      const modal = document.getElementById("struk_modal") as HTMLDialogElement;
-                      modal?.close();
-                    }}
-                    onPrint={() => {
-                      const modal = document.getElementById("struk_modal") as HTMLDialogElement;
-                      modal?.close();
-                      window.print();
-                    }}
-                  />
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
                   <span className="block max-w-[100px] truncate" title={t.id_transaksi}>
@@ -183,6 +174,20 @@ const TransaksiPages: React.FC = () => {
           </tbody>
         </table>
       </div>
+      {struk && (
+        <Modal
+          data={struk}
+          onClose={() => {
+            const modal = document.getElementById("struk_modal") as HTMLDialogElement;
+            modal?.close();
+          }}
+          onPrint={() => {
+            const modal = document.getElementById("struk_modal") as HTMLDialogElement;
+            modal?.close();
+            window.print();
+          }}
+        />
+      )}
     </div>
   );
 };

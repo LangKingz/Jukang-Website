@@ -16,6 +16,8 @@ const TukangPages = () => {
     review: 0,
   });
 
+  const [detail, setDetail] = useState<Tukang>();
+
   const openModal = () => {
     (document.getElementById("my_modal_1") as HTMLDialogElement).showModal();
   };
@@ -204,13 +206,13 @@ const TukangPages = () => {
                   <button
                     className="btn btn-soft"
                     onClick={() => {
-                      const modal = document.getElementById("detail_tukang_modal") as HTMLDialogElement;
+                      const modal = document.getElementById("detail_tukang_modal  ") as HTMLDialogElement;
                       modal.showModal();
+                      setDetail(tukang);
                     }}
                   >
                     Detail
                   </button>
-                  <ModalTukang tukang={tukang} onClose={() => (document.getElementById("detail_tukang_modal") as HTMLDialogElement).close()} />
                 </td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
                   <span className="block max-w-[100px] truncate" title={tukang.tukang_id}>
@@ -271,6 +273,7 @@ const TukangPages = () => {
       <div className="mt-4 text-center text-gray-500">
         <p>Total Tukang: {tukangs.length}</p>
       </div>
+      {detail && <ModalTukang tukang={detail} onClose={() => (document.getElementById("detail_tukang_modal") as HTMLDialogElement).close()} />}
     </div>
   );
 };

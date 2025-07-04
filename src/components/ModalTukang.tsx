@@ -7,7 +7,7 @@ type props = {
   onClose: () => void;
 };
 
-const ModalTukang = ({ tukang, onClose }: props) => {
+const   ModalTukang = ({ tukang, onClose }: props) => {
   return (
     <dialog id="detail_tukang_modal" className="modal modal-bottom sm:modal-middle  text-white">
       <div className="modal-box w-1/2">
@@ -56,14 +56,14 @@ const ModalTukang = ({ tukang, onClose }: props) => {
 
         {/* --- Jadwal Kerja --- */}
         <div className="divider">Jadwal Kerja</div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm">
+        {/* <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm">
           {Object.entries(tukang.jadwal).map(([hari, jam]) => (
             <div key={hari} className="p-2 bg-base-200 rounded-md">
               <p className="capitalize font-semibold">{hari}</p>
               <p className={jam.toLowerCase() === "tutup" ? "text-error" : "text-success"}>{jam}</p>
             </div>
           ))}
-        </div>
+        </div> */}
 
         {/* --- Ulasan Unggulan --- */}
         {tukang.review && (
