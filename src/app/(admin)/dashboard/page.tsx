@@ -5,12 +5,26 @@ import PendaftaranPages from "@/components/admin/PendaftaranPages";
 import SettingsPages from "@/components/admin/SettingsPages";
 import TransaksiPages from "@/components/admin/TransaksiPages";
 import TukangPages from "@/components/admin/TukangPages";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 const App = () => {
   // State untuk melacak halaman saat ini yang ditampilkan
   const [currentPage, setCurrentPage] = useState<string>("dashboard"); // Halaman default
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true); // State untuk mengelola sidebar pada layar kecil
+  const [role, setRole] = useState<string | null>('user');
+  const { push } = useRouter();
+
+  useEffect(() => {
+    const roles = localStorage.getItem("role") || "user"; // Mendapatkan role dari localStorage, default ke "user" jika tidak ada
+    setRole(roles);
+  });
+
+  useEffect(() => {
+    if (role !== "pengguna") {
+      push("/");
+    }
+  }, [role, push]);
 
   // Fungsi untuk merender komponen halaman yang sesuai berdasarkan currentPage
   const renderPage = () => {

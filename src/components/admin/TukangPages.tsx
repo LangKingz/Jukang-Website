@@ -191,6 +191,7 @@ const TukangPages = () => {
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Tukang</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Spesialis</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nomor Telepon</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Foto</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Domisili</th>
@@ -222,6 +223,7 @@ const TukangPages = () => {
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{tukang.namatukang}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{tukang.spesialis}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{tukang.nomor_telpon || "N/A"}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{tukang.email || "N/A"}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
                   {tukang.photoUrl ? (
                     <img
