@@ -16,12 +16,12 @@ const App = () => {
   const { push } = useRouter();
 
   useEffect(() => {
-    const roles = localStorage.getItem("role") || "user"; // Mendapatkan role dari localStorage, default ke "user" jika tidak ada
+    const roles = localStorage.getItem("role") || "pengguna"; // Mendapatkan role dari localStorage, default ke "user" jika tidak ada
     setRole(roles);
   });
 
   useEffect(() => {
-    if (role !== "pengguna") {
+    if (role !== "admin") {
       push("/");
     }
   }, [role, push]);
