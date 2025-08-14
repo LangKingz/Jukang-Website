@@ -12,11 +12,11 @@ const App = () => {
   // State untuk melacak halaman saat ini yang ditampilkan
   const [currentPage, setCurrentPage] = useState<string>("dashboard"); // Halaman default
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(true); // State untuk mengelola sidebar pada layar kecil
-  const [role, setRole] = useState<string | null>('user');
+  const [role, setRole] = useState<string | null>('admin');
   const { push } = useRouter();
 
   useEffect(() => {
-    const roles = localStorage.getItem("role") || "pengguna"; // Mendapatkan role dari localStorage, default ke "user" jika tidak ada
+    const roles = localStorage.getItem("role") || "admin"; // Mendapatkan role dari localStorage, default ke "user" jika tidak ada
     setRole(roles);
   });
 
