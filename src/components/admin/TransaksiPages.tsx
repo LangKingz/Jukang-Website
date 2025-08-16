@@ -3,12 +3,13 @@
 import { DataTransaksi, TransaksiResponse } from "@/model/transaksi";
 import React, { useEffect, useState } from "react";
 import Modal from "../Modal";
+import ModalUpdateTrans from "../ModalUpdateTrans";
 
 const TransaksiPages: React.FC = () => {
   const [transactions, setTransactions] = useState<DataTransaksi[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  // const [formData, setFormData] = useState<DataTransaksi>();
+  const [formData, setFormData] = useState<DataTransaksi>();
 
   const [struk, setStruk] = useState<DataTransaksi>();
 
@@ -98,12 +99,12 @@ const TransaksiPages: React.FC = () => {
           <thead className="bg-gray-50">
             <tr>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">Struk</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tl-lg">ID Transaksi</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Pelanggan</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Tukang</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Spesialis</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
-              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lat</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Long</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Metode Pembayaran</th>
@@ -127,15 +128,6 @@ const TransaksiPages: React.FC = () => {
                     Lihat Struk
                   </button>
                 </td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
-                  <span className="block max-w-[100px] truncate" title={t.id_transaksi}>
-                    {t.id_transaksi}
-                  </span>
-                </td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.dataUser.namalengkap}</td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.dataTukang.namatukang}</td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.dataTukang.spesialis}</td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{new Date(t.tanggal).toLocaleDateString()}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
                   <span
                     className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
@@ -147,6 +139,16 @@ const TransaksiPages: React.FC = () => {
                     {t.status_code}
                   </span>
                 </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
+                  <span className="block max-w-[100px] truncate" title={t.id_transaksi}>
+                    {t.id_transaksi}
+                  </span>
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.dataUser.namalengkap}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.dataTukang.namatukang}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.dataTukang.spesialis}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{new Date(t.tanggal).toLocaleDateString()}</td>
+
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.lat}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.long}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.metodePembayaran}</td>
@@ -161,8 +163,9 @@ const TransaksiPages: React.FC = () => {
                   </button>
                   <button
                     onClick={() => {
-                      // (document.getElementById("my_modal_3") as HTMLDialogElement | null)?.showModal();
-                      // setFormData(t);
+                      const modal = document.getElementById("my_modal_3") as HTMLDialogElement | null;
+                      modal?.showModal();
+                      setFormData(t);
                     }}
                     className={`px-3 py-1 rounded-md cursor-pointer text-white text-xs font-medium bg-violet-500 hover:bg-violet-600 transition-colors duration-200`}
                   >
@@ -185,6 +188,16 @@ const TransaksiPages: React.FC = () => {
             const modal = document.getElementById("struk_modal") as HTMLDialogElement;
             modal?.close();
             window.print();
+          }}
+        />
+      )}
+
+      {formData && (
+        <ModalUpdateTrans
+          data={formData}
+          onClose={() => {
+            const modal = document.getElementById("my_modal_3") as HTMLDialogElement;
+            modal?.close();
           }}
         />
       )}
