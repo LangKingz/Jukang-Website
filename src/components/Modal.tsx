@@ -13,8 +13,8 @@ const Modal = ({ data, onClose, onPrint }: props) => {
     switch (statusCode) {
       case "Selesai": // atau status 'selesai' lainnya
         return { text: "Selesai", className: "badge-success text-white" };
-      case "Diterima": // atau status 'dibatalkan'
-        return { text: "Dibatalkan", className: "badge-error text-white" };
+      case "diterima": // atau status 'diterima'
+        return { text: "diterima", className: "badge-success text-white" };
       default:
         return { text: "Dalam Proses", className: "badge-warning text-white" };
     }

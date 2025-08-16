@@ -163,7 +163,7 @@ const TransaksiPages: React.FC = () => {
                   </button>
                   <button
                     onClick={() => {
-                      const modal = document.getElementById("my_modal_3") as HTMLDialogElement | null;
+                      const modal = document.getElementById("my_modal_3") as HTMLDialogElement;
                       modal?.showModal();
                       setFormData(t);
                     }}
@@ -194,6 +194,7 @@ const TransaksiPages: React.FC = () => {
 
       {formData && (
         <ModalUpdateTrans
+          key={formData.id_transaksi} // Tambahkan key agar modal update selalu fresh
           data={formData}
           onClose={() => {
             const modal = document.getElementById("my_modal_3") as HTMLDialogElement;
