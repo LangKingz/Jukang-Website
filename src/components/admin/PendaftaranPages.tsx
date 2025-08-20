@@ -139,7 +139,7 @@ const PendaftaranPages: React.FC = () => {
         }),
       });
 
-      const response1 = await fetch(`${CONFIG.BASE_URL}email/tolak`,{
+      const response1 = await fetch(`${CONFIG.BASE_URL}email/tolak`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -171,7 +171,7 @@ const PendaftaranPages: React.FC = () => {
         confirmButtonText: "OK",
       });
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -205,7 +205,10 @@ const PendaftaranPages: React.FC = () => {
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">spesialis</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Foto Profil</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Foto KTP</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deskripsi</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dibuat Pada</th>
+
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider rounded-tr-lg">Diperbarui Pada</th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
 
@@ -255,6 +258,10 @@ const PendaftaranPages: React.FC = () => {
                     <span className="text-gray-500">Tidak Ada</span>
                   )}
                 </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">
+                  {user.harga.toLocaleString("id-ID", { style: "currency", currency: "IDR" })}
+                </td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{user.deskripsi}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{new Date(user.createdAt).toLocaleString()}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{new Date(user.updatedAt).toLocaleString()}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">

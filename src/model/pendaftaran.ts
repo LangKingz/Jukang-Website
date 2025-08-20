@@ -13,6 +13,8 @@ export interface DataPendaftaran {
   photoprofile: string;
   createdAt: string;
   email: string;
+  harga:number;
+  deskripsi: string;
   status: string;
   updatedAt: string;
   photoktp: string;
