@@ -5,12 +5,12 @@ export interface UserResponse {
 
 export interface ListUser {
   user_id: string;
-  uid_google: string;
   namalengkap: string;
-  nomortelp: string;
   email: string;
   password: string;
+  isVerified: boolean;
   role: string;
+  multiRole: boolean;
   photoprofile: string;
   createdAt: string;
   updatedAt: string;

@@ -1,10 +1,12 @@
 "use client";
 
 import DashboardPages from "@/components/admin/DashboardPages";
+import KategoriTukang from "@/components/admin/KategoriTukang";
 import PendaftaranPages from "@/components/admin/PendaftaranPages";
 import SettingsPages from "@/components/admin/SettingsPages";
 import TransaksiPages from "@/components/admin/TransaksiPages";
 import TukangPages from "@/components/admin/TukangPages";
+import { Tag, User, Wallet } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -33,12 +35,14 @@ const App = () => {
         return <DashboardPages />;
       case "registrations":
         return <PendaftaranPages />;
-      case "settings":
+      case "pengguna":
         return <SettingsPages />;
       case "tukang":
         return <TukangPages />;
       case "transaksi":
         return <TransaksiPages />;
+      case "kategori":
+        return <KategoriTukang />;
       default:
         return <DashboardPages />; // Kembali ke Dasbor jika halaman tidak ditemukan
     }
@@ -127,37 +131,33 @@ const App = () => {
                   transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75`}
               >
                 {/* Ikon Transaksi (SVG) */}
-                <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9.5a3 3 0 013-3h.5a3 3 0 013 3V19m-4-7h-4"
-                  ></path>
-                </svg>
+                <Wallet size={24} className="mr-3" />
                 Transaksi
               </button>
             </li>
             <li className="mb-4">
               {/* Tombol navigasi Pengaturan */}
               <button
-                onClick={() => setCurrentPage("settings")}
+                onClick={() => setCurrentPage("pengguna")}
                 className={`flex items-center w-full px-4 py-2 rounded-lg text-left 
-                  ${currentPage === "settings" ? "bg-gray-700 text-teal-400" : "hover:bg-gray-700 hover:text-white"}
+                  ${currentPage === "pengguna" ? "bg-gray-700 text-teal-400" : "hover:bg-gray-700 hover:text-white"}
                   transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75`}
               >
                 {/* Ikon Pengaturan (SVG) */}
-                <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00
-                  -2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 002.573-1.066z"
-                  ></path>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-                Pengaturan
+                <User size={24} className="mr-3" />
+                Pengguna
+              </button>
+            </li>
+            <li className="mb-4">
+              {/* Tombol navigasi Pengaturan */}
+              <button
+                onClick={() => setCurrentPage("kategori")}
+                className={`flex items-center w-full px-4 py-2 rounded-lg text-left 
+                  ${currentPage === "kategori" ? "bg-gray-700 text-teal-400" : "hover:bg-gray-700 hover:text-white"}
+                  transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-teal-400 focus:ring-opacity-75`}
+              >
+                <Tag  size={24} className="mr-3"/>
+                Kategori
               </button>
             </li>
             {/* Anda dapat menambahkan lebih banyak item menu di sini */}
