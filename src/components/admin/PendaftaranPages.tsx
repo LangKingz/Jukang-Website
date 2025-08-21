@@ -146,18 +146,22 @@ const PendaftaranPages: React.FC = () => {
         },
         body: JSON.stringify({
           email: user.email,
-          nama: user.namalengkap,
+          name: user.namalengkap,
         }),
       });
 
       if (!response.ok && !response1.ok) {
-        throw new Error("Gagal menolak pendaftaran.");
+        Swal.fire({
+          title: "Pendaftaran Ditolak",
+          text: "Terjadi kesalahan saat menolak pendaftaran.",
+          icon: "error",
+        });
       }
 
       Swal.fire({
         title: "Pendaftaran Ditolak",
-        text: `${error}`,
-        icon: "error",
+        text: `PEndafatran di tolak`,
+        icon: "success",
         confirmButtonText: "OK",
       });
 
