@@ -146,7 +146,7 @@ const PendaftaranPages: React.FC = () => {
         },
         body: JSON.stringify({
           email: user.email,
-          name: user.namalengkap,
+          nama: user.namalengkap,
         }),
       });
 
