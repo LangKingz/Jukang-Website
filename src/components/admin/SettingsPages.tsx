@@ -4,10 +4,12 @@ import { CONFIG } from "@/hooks/URLBASE";
 import { ListUser, UserResponse } from "@/model/user";
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import ModalUpdatePengguna from "../modalUpdate";
 
 const SettingsPages: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [user, setUser] = useState<ListUser[]>([]);
+  const [formData, setFormData] = useState<ListUser | null>(null);
 
   const fetchData = async () => {
     try {
@@ -148,7 +150,15 @@ const SettingsPages: React.FC = () => {
                   <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{formatDate(user.createdAt)}</td>
                   <td className="px-4 py-3 whitespace-nowrap text-sm font-medium">
                     <div className="flex items-center gap-2">
-                      <button className="text-indigo-600 hover:text-indigo-900 transition-colors duration-200" title="Setujui Pengguna">
+                      <button
+                        onClick={() => {
+                          const modal = document.getElementById("my_modal_3") as HTMLDialogElement;
+                          modal?.show();
+                          setFormData(user);
+                        }}
+                        className="text-indigo-600 hover:text-indigo-900 transition-colors duration-200"
+                        title="Setujui Pengguna"
+                      >
                         Update
                       </button>
                       <button
@@ -166,6 +176,7 @@ const SettingsPages: React.FC = () => {
           </tbody>
         </table>
       </div>
+      {formData && <ModalUpdatePengguna onRefresh={fetchData} key={formData.user_id} data={formData} onClose={() => setFormData(null)} />}
     </div>
   );
 };

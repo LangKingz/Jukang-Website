@@ -147,7 +147,7 @@ const TransaksiPages: React.FC = () => {
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.dataUser.namalengkap}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.dataTukang.namatukang}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.dataTukang.spesialis}</td>
-                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{new Date(t.tanggal).toLocaleDateString()}</td>
+                <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.tanggal}</td>
 
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.lat}</td>
                 <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-800">{t.long}</td>
