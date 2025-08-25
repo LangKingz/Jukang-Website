@@ -52,6 +52,9 @@ const PendaftaranPages: React.FC = () => {
           photoUrl: user.photoprofile,
           spesialis: user.spesialis,
           email: user.email,
+          hargatukang: user.harga,
+          deskripsi: user.deskripsi,
+          alamat: user.alamat
         }),
       });
       const response1 = await fetch(`https://api-jukang.vercel.app/users/update`, {

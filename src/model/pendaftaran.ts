@@ -18,5 +18,6 @@ export interface DataPendaftaran {
   status: string;
   updatedAt: string;
   photoktp: string;
+  alamat: string;
 }
 
